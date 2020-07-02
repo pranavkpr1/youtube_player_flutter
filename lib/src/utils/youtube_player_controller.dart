@@ -275,7 +275,7 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   void setPlaybackRate(double rate) => _callMethod('setPlaybackRate($rate)');
 
   /// Toggles the player's full screen mode.
-  void toggleFullScreenMode() {
+  void toggleFullScreenMode(BuildContext context) async {
     updateValue(value.copyWith(isFullScreen: !value.isFullScreen));
     if (value.isFullScreen) {
       await _pushFullScreenWidget(context);
