@@ -68,7 +68,7 @@ class YoutubePlayerFlags {
   final int endAt;
 
   /// Creates [YoutubePlayerFlags].
-  const YoutubePlayerFlags({
+  YoutubePlayerFlags({
     this.hideControls = false,
     this.controlsVisibleAtStart = false,
     this.autoPlay = true,
