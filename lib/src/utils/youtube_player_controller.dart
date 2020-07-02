@@ -5,12 +5,14 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter/material.dart';
 
 import '../enums/playback_rate.dart';
 import '../enums/player_state.dart';
 import '../utils/youtube_meta_data.dart';
 import '../widgets/progress_bar.dart';
 import 'youtube_player_flags.dart';
+import '../player/youtube_player.dart';
 
 /// [ValueNotifier] for [YoutubePlayerController].
 class YoutubePlayerValue {
@@ -276,14 +278,84 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   void toggleFullScreenMode() {
     updateValue(value.copyWith(isFullScreen: !value.isFullScreen));
     if (value.isFullScreen) {
+      await _pushFullScreenWidget(context);
+    } else {
+      SystemChrome.setEnabledSystemUIOverlays([]);
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+	    Navigator.of(context, rootNavigator: true).pop();
+    }
+  }
+  
+   Widget _buildFullScreenVideo(
+      BuildContext context,
+      Animation<double> animation,
+      YoutubePlayer controllerProvider) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.black,
+        child: controllerProvider,
+      ),
+    );
+  }
+
+  AnimatedWidget _defaultRoutePageBuilder(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      YoutubePlayer controllerProvider) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget child) {
+        return _buildFullScreenVideo(context, animation, controllerProvider);
+      },
+    );
+  }
+
+  Widget _fullScreenRoutePageBuilder(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    var controllerProvider = YoutubePlayer(
+      controller: YoutubePlayerController.of(context)
+    );
+
+    
+      return _defaultRoutePageBuilder(
+          context, animation, secondaryAnimation, controllerProvider);
+   
+  }
+
+  Future<dynamic> _pushFullScreenWidget(BuildContext context) async {
+    final isAndroid = Theme.of(context).platform == TargetPlatform.android;
+    
+	final TransitionRoute<Null> route = PageRouteBuilder<Null>(
+      pageBuilder: _fullScreenRoutePageBuilder,
+    );
+
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    if (isAndroid) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
       ]);
-    } else {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     }
+
+    
+
+    await Navigator.of(context, rootNavigator: true).push(route);
+    
+	//_isFullScreen = false;
+    //widget.controller.exitFullScreen();
+
+    
+
+    //SystemChrome.setEnabledSystemUIOverlays([]);
+    //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
+
 
   /// MetaData for the currently loaded or cued video.
   YoutubeMetaData get metadata => value.metaData;
