@@ -318,7 +318,7 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
     final isAndroid = Theme.of(context).platform == TargetPlatform.android;
 	
 	  var controller=  YoutubePlayerController.of(context);
-	  controller.flags.copyWith(startAt:controller.value.position.inSeconds,autoPlay:true);
+	  controller.flags.copyWith(startAt:controller.value.position.inSeconds);
     var controllerProvider = YoutubePlayer(
       controller: controller,
 	  
