@@ -318,11 +318,10 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
     final isAndroid = Theme.of(context).platform == TargetPlatform.android;
 	
 	  var controller=  YoutubePlayerController.of(context);
-	  controller.flags.startAt=controller.value.position.inSeconds ;
-	  controller.flags.autoPlay=true;
 	  
     var controllerProvider = YoutubePlayer(
-      controller: controller   
+      controller: controller,
+	    flags: YoutubePlayerFlags(startAt:controller.value.position.inSeconds,autoPlay:true)
     );
 	final TransitionRoute<Null> route = PageRouteBuilder<Null>(
       pageBuilder: (BuildContext context, Animation animation,
