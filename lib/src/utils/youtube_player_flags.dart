@@ -17,7 +17,7 @@ class YoutubePlayerFlags {
   /// Define whether to auto play the video after initialization or not.
   ///
   /// Default is true.
-  bool autoPlay;
+  final bool autoPlay;
 
   /// Mutes the player initially
   ///
@@ -62,13 +62,13 @@ class YoutubePlayerFlags {
   /// Specifies the default starting point of the video in seconds
   ///
   /// Default is 0.
-  int startAt;
+  final int startAt;
 
   /// Specifies the default end point of the video in seconds
   final int endAt;
 
   /// Creates [YoutubePlayerFlags].
-  YoutubePlayerFlags({
+  const YoutubePlayerFlags({
     this.hideControls = false,
     this.controlsVisibleAtStart = false,
     this.autoPlay = true,
