@@ -160,7 +160,7 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   /// Creates [YoutubePlayerController].
   YoutubePlayerController({
     @required this.initialVideoId,
-    this.flags = const YoutubePlayerFlags(),
+    this.flags =  YoutubePlayerFlags(),
   })  : assert(initialVideoId != null, 'initialVideoId can\'t be null.'),
         assert(flags != null),
         super(YoutubePlayerValue());
