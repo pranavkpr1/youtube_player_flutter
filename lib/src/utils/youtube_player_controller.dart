@@ -313,26 +313,17 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
     );
   }
 
-  Widget _fullScreenRoutePageBuilder(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) {
+ 
+  Future<dynamic> _pushFullScreenWidget(BuildContext context) async {
+    final isAndroid = Theme.of(context).platform == TargetPlatform.android;
     var controllerProvider = YoutubePlayer(
       controller: YoutubePlayerController.of(context)
     );
-
-    
-      return _defaultRoutePageBuilder(
-          context, animation, secondaryAnimation, controllerProvider);
-   
-  }
-
-  Future<dynamic> _pushFullScreenWidget(BuildContext context) async {
-    final isAndroid = Theme.of(context).platform == TargetPlatform.android;
-    
 	final TransitionRoute<Null> route = PageRouteBuilder<Null>(
-      pageBuilder: _fullScreenRoutePageBuilder,
+      pageBuilder: (BuildContext context, Animation animation,
+        Animation secondaryAnimation) {
+      return _defaultRoutePageBuilder(context, animation, secondaryAnimation, controllerProvider);
+    }
     );
 
     SystemChrome.setEnabledSystemUIOverlays([]);
