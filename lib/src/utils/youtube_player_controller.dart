@@ -316,8 +316,13 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
  
   Future<dynamic> _pushFullScreenWidget(BuildContext context) async {
     final isAndroid = Theme.of(context).platform == TargetPlatform.android;
+	
+	  var controller=  YoutubePlayerController.of(context);
+	  controller.flags.startAt=controller.value.position.inSeconds ;
+	  controller.flags.autoPlay=true;
+	  
     var controllerProvider = YoutubePlayer(
-      controller: YoutubePlayerController.of(context)
+      controller: controller   
     );
 	final TransitionRoute<Null> route = PageRouteBuilder<Null>(
       pageBuilder: (BuildContext context, Animation animation,
@@ -338,13 +343,7 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
 
     await Navigator.of(context, rootNavigator: true).push(route);
     
-	//_isFullScreen = false;
-    //widget.controller.exitFullScreen();
 
-    
-
-    //SystemChrome.setEnabledSystemUIOverlays([]);
-    //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
 
