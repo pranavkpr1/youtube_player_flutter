@@ -191,7 +191,7 @@ class YoutubePlayer extends StatefulWidget {
 class _YoutubePlayerState extends State<YoutubePlayer> {
   YoutubePlayerController controller;
    
-  final GlobalKey YouTubePlayerKey = GlobalKey();
+  
   double _aspectRatio;
   bool _initialLoad = true;
 
@@ -235,7 +235,6 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
     return Material(
       elevation: 0,
       color: Colors.black,
-      key:YouTubePlayerKey,
       child: InheritedYoutubePlayer(
         controller: controller,
         child: Container(
