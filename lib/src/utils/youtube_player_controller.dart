@@ -157,12 +157,11 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   /// Composes all the flags required to control the player.
   final YoutubePlayerFlags flags;
    
-final GlobalKey _controllerKey = GlobalKey();
+
 	
   /// Creates [YoutubePlayerController].
   YoutubePlayerController({
-    @required this.initialVideoId,
-     key: _controllerKey,	    
+    @required this.initialVideoId,    
     this.flags =  const YoutubePlayerFlags(),
   })  : assert(initialVideoId != null, 'initialVideoId can\'t be null.'),
         assert(flags != null),
@@ -379,12 +378,13 @@ final GlobalKey _controllerKey = GlobalKey();
 /// An inherited widget to provide [YoutubePlayerController] to it's descendants.
 class InheritedYoutubePlayer extends InheritedWidget {
   /// Creates [InheritedYoutubePlayer]
+	final GlobalKey _controllerKey = GlobalKey();
   const InheritedYoutubePlayer({
-    Key key,
+    key: _controllerKey,
     @required this.controller,
     @required Widget child,
   })  : assert(controller != null),
-        super(key: key, child: child);
+        super(child: child);
 
   /// A [YoutubePlayerController] which controls the player.
   final YoutubePlayerController controller;
