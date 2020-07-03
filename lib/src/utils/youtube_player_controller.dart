@@ -380,7 +380,7 @@ class InheritedYoutubePlayer extends InheritedWidget {
   /// Creates [InheritedYoutubePlayer]
 
   const InheritedYoutubePlayer({
-    key: GlobalKey(),
+    key: const GlobalKey(),
     @required this.controller,
     @required Widget child,
   })  : assert(controller != null),
