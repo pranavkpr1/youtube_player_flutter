@@ -378,9 +378,9 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
 /// An inherited widget to provide [YoutubePlayerController] to it's descendants.
 class InheritedYoutubePlayer extends InheritedWidget {
   /// Creates [InheritedYoutubePlayer]
-	final GlobalKey _controllerKey = GlobalKey();
+
   const InheritedYoutubePlayer({
-    key: _controllerKey,
+    key: GlobalKey(),
     @required this.controller,
     @required Widget child,
   })  : assert(controller != null),
