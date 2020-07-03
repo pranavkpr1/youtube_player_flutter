@@ -156,10 +156,13 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
 
   /// Composes all the flags required to control the player.
   final YoutubePlayerFlags flags;
-
+   
+final GlobalKey _controllerKey = GlobalKey();
+	
   /// Creates [YoutubePlayerController].
   YoutubePlayerController({
     @required this.initialVideoId,
+     key: _controllerKey,	    
     this.flags =  const YoutubePlayerFlags(),
   })  : assert(initialVideoId != null, 'initialVideoId can\'t be null.'),
         assert(flags != null),
